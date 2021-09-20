@@ -3,7 +3,7 @@ data{
   
   // variables
   int<lower=0, upper=8> Y[N_x]; // amusement
-  vector[N_x] AU10; // AU10 ( 0 or 1 )
+  vector[N_x] AU10; // AU10 ( 0 or 1 ) 
   
   // for prediction
   int N_x_pred;

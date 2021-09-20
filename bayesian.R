@@ -15,7 +15,7 @@ standata <- list(
   N_x = nrow(data), #サンプルサイズ
   Y = data$amusement, #目的変数
   AU10 = data$AU10, #説明変数
-  x_pred = seq(0,1,length=2)
+  x_pred = seq(0,1,length=116)
   ) %>%
   c(N_x_pred = length(.$x_pred))
 
