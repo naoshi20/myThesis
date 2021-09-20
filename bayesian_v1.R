@@ -14,27 +14,27 @@ data <- read.csv("data/data.csv",header=T)
 standata <- list(
   N_x = nrow(data), #サンプルサイズ
   Y = data$amusement, #目的変数
-  AU10 = data$AU10, #説明変数
+  AU1 = data$AU1, #説明変数
   x_pred = seq(0,1,length=2)
-  ) %>%
+) %>%
   c(N_x_pred = length(.$x_pred))
 
 # compile -----------------------------------------------------------------
-stan_model <- stan_model(file="bayesian.stan")
+#stan_model <- stan_model(file="bayesian.stan")
 
 # model fitting -----------------------------------------------------------------
-fit <- sampling(stan_model
-                ,data=standata
-                ,seed=610
-                ,chains=4
-                ,iter=2500 + 500
-                ,warmup=500
-                ,thin=1
-                ,pars="theta", include=FALSE
-)
+#fit <- sampling(stan_model
+#                ,data=standata
+#                ,seed=610
+#                ,chains=4
+#                ,iter=2500 + 500
+#                ,warmup=500
+#                ,thin=1
+#                ,pars="theta", include=FALSE
+#)
 
 # saving and loading an RDS file -----------------------------------------------------------------
-saveRDS(fit, "./result/stanfitRDS/amusement.rds")
+#saveRDS(fit, "./result/stanfitRDS/amusement.rds")
 fit <- readRDS("./result/stanfitRDS/amusement.rds")
 
 # summary -----------------------------------------------------------------
@@ -53,11 +53,11 @@ pred <- s_fit %>%
   as.data.frame() %>%
   rownames_to_column("parameter") %>%
   filter(str_detect(parameter, "^theta_pred")) %>%
-  mutate(AU10 = standata$x_pred) %>%
-  dplyr::select(AU10, mean, "2.5%", "97.5%") %>%
+  mutate(AU1 = standata$x_pred) %>%
+  dplyr::select(AU1, mean, "2.5%", "97.5%") %>%
   dplyr::rename(amusement = mean, Lower = "2.5%", Upper = "97.5%")
 
-g <- ggplot(data, aes(x = AU10, y = amusement)) %>% plt_pred()
+g <- ggplot(data, aes(x = AU1, y = amusement)) %>% plt_pred()
 plot(g)
 
 ggsave("result/bayesian/pred_amusement.png", g, width = 2.5, height = 2.5, dpi = 600)

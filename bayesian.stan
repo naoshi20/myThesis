@@ -3,7 +3,7 @@ data{
   
   // variables
   int<lower=0, upper=8> Y[N_x]; // amusement
-  vector[N_x] AU1; // AU1 ( 0 or 1 )
+  vector[N_x] AU10; // AU10 ( 0 or 1 )
   
   // for prediction
   int N_x_pred;
@@ -21,7 +21,7 @@ transformed parameters{
   real theta[N_x];
   
   for(i in 1:N_x){
-    theta[i] = beta0 + beta1 * AU1[i];
+    theta[i] = beta0 + beta1 * AU10[i];
   }
 }
 
