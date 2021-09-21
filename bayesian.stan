@@ -32,7 +32,7 @@ model{
 }
 
 generated quantities{
-  real theta_pred[N_x_pred]; // for regression line int<lower=0, upper=8>
+  real theta_pred[N_x_pred]; // for regression line
   
   for(k in 1:N_x_pred){
     theta_pred[k] = beta0 + beta1 * x_pred[k];

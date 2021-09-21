@@ -3,6 +3,7 @@ library(tidyverse)
 data <- read.csv("data/data.csv")
 
 fit <- readRDS("./result/stanfitRDS/amusement.rds")
+#fit <- readRDS("./result/stanfitRDS/amusement_poisson.rds")
 
 mcmc_sample <- rstan::extract(fit, permuted = FALSE)
 #dimnames(mcmc_sample)
@@ -25,20 +26,20 @@ print(
 
 #事後分布範囲の比較
 mcmc_intervals(
-  mcmc_sample, pars = c("beta0", "beta1", "eta"),
+  mcmc_sample, pars = c("beta0", "beta1"),
   prob = 0.8,
   prob_outer = 0.95
 )
 
 #事後分布範囲の比較(密度付き)
 mcmc_areas(
-  mcmc_sample, pars = c("beta0", "beta1", "eta"),
+  mcmc_sample, pars = c("beta0", "beta1"),
   prob = 0.6,
   prob_outer = 0.99
 )
 
 #事後予測チェック
-yrep <- rstan::extract(fit)$theta #classはmatrix, [1,"chain:1","theta_pred[1]"]#$theta_pred[1]
+yrep <- rstan::extract(fit)$theta #classはmatrix
 ppc_hist(y = data$amusement,
          yrep = yrep[1:10,],
-         binwidth = 1)
+         binwidth = 0.5)
