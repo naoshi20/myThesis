@@ -14,54 +14,30 @@ data <- read.csv("data/data.csv",header=T)
 summary(data)
 
 # modeling
-#fit <- brm(
-#  formula = amusement ~ AU1 + AU2 + AU4 + AU5	+ AU6	+ AU7	+ AU10	+ AU12 + AU14	+ AU15 + AU17 + AU21 + AU23 + AU25 + AU26,
-#  family = gaussian(),
-#  data = data,
-#  seed = 1,
-#  prior = c(set_prior("", class = "Intercept"),
-#            set_prior("", class = "sigma"))
-#)
-
-# saving and loading an RDS file -----------------------------------------------------------------
-#saveRDS(fit, "./result/stanfitRDS/amusement_multi.rds")
-fit <- readRDS("./result/stanfitRDS/amusement_multi.rds")
-
-fit
-# summary -----------------------------------------------------------------
-write.csv(fit, file = "./result/bayesian/amusement_estimates_multi.csv", row.names = FALSE)
-write.csv(summary(fit), file = "./result/bayesian/amusement_summary_multi.csv", row.names = FALSE)
-
-# visualization -----------------------------------------------------------------
-pred <- s_fit %>%
-  as.data.frame() %>%
-  rownames_to_column("parameter") %>%
-  filter(str_detect(parameter, "^theta_pred")) %>%
-  mutate(AU10 = standata$x_pred) %>%
-  dplyr::select(AU10, mean, "2.5%", "97.5%") %>%
-  dplyr::rename(amusement = mean, Lower = "2.5%", Upper = "97.5%")
-
-g <- ggplot(data, aes(x = AU10, y = amusement)) %>% plt_pred()
-plot(g)
-
-ggsave("result/bayesian/pred_amusement_multi.png", g, width = 2.5, height = 2.5, dpi = 600)
-
-# association between a and beta -----------------------------------------------------------------
-est <- data.frame(
-  beta0_M = s_fit["beta0", "mean"],
-  beta0_Lower = s_fit["beta0", "2.5%"],
-  beta0_Upper = s_fit["beta0", "97.5%"],
-  beta1_M = s_fit["beta1", "mean"],
-  beta1_Lower = s_fit["beta1", "2.5%"],
-  beta1_Upper = s_fit["beta1", "97.5%"]
+fit <- brm(
+  formula = amusement ~ AU1 + AU2 + AU4 + AU5	+ AU6	+ AU7	+ AU10	+ AU12 + AU14	+ AU15 + AU17 + AU21 + AU23 + AU25 + AU26,
+  family = gaussian(),
+  data = data,
+  seed = 1,
+  prior = c(set_prior("", class = "Intercept"),
+            set_prior("", class = "sigma")),
+  save_pars = save_pars(all = TRUE)
 )
 
-g <- ggplot(est, aes(x = beta0_M, y = beta1_M)) %>% plt_est()
-plot(g)
+# saving and loading an RDS file -----------------------------------------------------------------
+saveRDS(fit, "./result/stanfitRDS/amusement_multi.rds")
+fit <- readRDS("./result/stanfitRDS/amusement_multi.rds")
+s_fit <- summary(fit)
+s_fit
+names(s_fit)
+# summary -----------------------------------------------------------------
+write.csv(fit, file = "./result/bayesian/amusement_estimates_multi.csv", row.names = FALSE)
+#エラー
+#write.csv(s_fit$spec_pars, file = "./result/bayesian/amusement_summary_multi_spec.csv", row.names = FALSE)
+#write.csv(s_fit$cor_pars, file = "./result/bayesian/amusement_summary_multi_cor.csv", row.names = FALSE)
 
-ggsave("result/bayesian/est_amusement_multi.png", g, width = 2.5, height = 2.5, dpi = 600)
-
+#以下エラー----------------------------------------------------------------------
 # prediction visualization --------------------------------------------------------------------
-eff <- conditional_effects(lm_brms, effects = "AU10:AU12")
-plot(eff, points = TRUE)
+#eff <- conditional_effects(lm_brms, effects = "AU10:AU12")
+#plot(eff, points = TRUE)
 
