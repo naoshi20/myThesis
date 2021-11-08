@@ -9,8 +9,8 @@ This repository is about my thesis.
 * source("<実行したいファイル名>", echo = TRUE)
 
 ## ディレクトリ構成
+```
 .
-
 ├── result: 分析結果の出力先
 
 │   ├── stanRDS: stan結果を格納するバイナリファイル群
@@ -23,8 +23,9 @@ This repository is about my thesis.
 ├── bayesian_result_multi.R: トレースプロット・事後分布出力コード
 ├── myfunc.R
 └──regression_disg.R
+```
 
-"""
+```
 .
 │
 ├ README.md .. 目次を書く
@@ -42,4 +43,4 @@ This repository is about my thesis.
 ├ myfunc.R
 └ regression_disg.R
 
-"""
+```
