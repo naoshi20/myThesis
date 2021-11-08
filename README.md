@@ -11,8 +11,8 @@ This repository is about my thesis.
 ## ディレクトリ構成
 ```
 .
-├── result: 分析結果の出力先
 │
+├── result: 分析結果の出力先
 │   ├── stanRDS: stan結果を格納するバイナリファイル群
 │   ├── bayesian: ベイズ統計モデリング結果を格納するファイル群
 │   └── regression: 帰無仮説検定型統計モデリング結果を格納するファイル群
