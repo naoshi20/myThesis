@@ -24,6 +24,7 @@ This repository is about my thesis.
 ├── myfunc.R
 └──regression_disg.R
 
+"""
 .
 │
 ├ README.md .. 目次を書く
@@ -41,3 +42,4 @@ This repository is about my thesis.
 ├ myfunc.R
 └ regression_disg.R
 
+"""
