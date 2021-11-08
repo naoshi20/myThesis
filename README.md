@@ -5,5 +5,5 @@ This repository is about my thesis.
 * ブラウザで localhost:8787にアクセス。
 右上のreproduction_mentalrotationのところから、face_emoのRプロジェクトを開く
 
-##ファイル実行
-* source("calc.R", echo = TRUE)
+## ファイル実行方法
+* source("<実行したいファイル名>", echo = TRUE)
