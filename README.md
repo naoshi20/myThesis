@@ -22,6 +22,6 @@ This repository is about my thesis.
 ├── bayesian_multi_disg_geometric.R: 幾何分布採用型ベイズ統計モデリング
 ├── bayesian_multi_disg_poisson.R: ポアソン分布採用型ベイズ統計モデリング
 ├── bayesian_result_multi.R: トレースプロット・事後分布出力コード
-├── myfunc.R
-└──regression_disg.R
+├── myfunc.R: 共通で使用する関数
+└──　regression_disg.R: 帰無仮説検定型統計モデリング
 ```
