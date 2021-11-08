@@ -6,3 +6,5 @@ bayesian.rds
 .Ruserdata
 face_emo.Rproj
 /data
+/.Rproj.user
+/learn
